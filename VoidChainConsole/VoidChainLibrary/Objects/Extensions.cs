@@ -58,5 +58,21 @@ namespace VoidChainLibrary.Objects
 				buf[length - i - 1] = temp;
 			}
 		}
+
+        public static byte ToByte(this uint number)
+        {
+            return Convert.ToByte(number);
+        }
+
+        public static uint ToUint32(this byte _byte)
+        {
+            return Convert.ToUInt32(_byte);
+        }
+
+        public static ulong ToULong(this byte _byte)
+        {
+            return Convert.ToUInt64(_byte);
+        }
+
     }
 }

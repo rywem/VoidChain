@@ -3,9 +3,21 @@ using System.Numerics;
 using VoidChainLibrary.Objects;
 namespace VoidChainLibrary.Blockchain
 {
+    public interface IBlock
+    {
+        ulong COIN { get; }
+        ulong CENT { get; }
 
+		uint OP_CHECKSIG { get; set; } //expressed as 0xAC
+		bool GenerateBlock { get; set; }
+
+		uint StartNonce { get; set; }
+		uint UnixTime { get; set; }
+		Transaction transaction { get; set; }
+        void Genesis();
+    }
    
-    public class GenesisBlock
+    public class GenesisBlock : IBlock
     {
         public ulong COIN { get; } = 100000000;
         public ulong CENT { get; } = 1000000;
@@ -17,13 +29,9 @@ namespace VoidChainLibrary.Blockchain
         public uint UnixTime { get; set; } = 0;
         public Transaction transaction { get; set; }
 
-        public GenesisBlock(bool initialize = false)
+        public void Genesis()
         {
-            if(initialize == true)
-                transaction.InitTransaction(COIN);
+            transaction.Initialize(COIN);
         }
-
     }
-
-  
 }
