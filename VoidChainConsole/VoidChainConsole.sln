@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoidChainConsole", "VoidChainConsole\VoidChainConsole.csproj", "{B9D82EED-7C9D-45AD-B6E3-B6853B5D8BEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoidChainLibrary", "VoidChainLibrary\VoidChainLibrary.csproj", "{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,5 +15,9 @@ Global
 		{B9D82EED-7C9D-45AD-B6E3-B6853B5D8BEF}.Debug|x86.Build.0 = Debug|x86
 		{B9D82EED-7C9D-45AD-B6E3-B6853B5D8BEF}.Release|x86.ActiveCfg = Release|x86
 		{B9D82EED-7C9D-45AD-B6E3-B6853B5D8BEF}.Release|x86.Build.0 = Release|x86
+		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Debug|x86.Build.0 = Debug|Any CPU
+		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Release|x86.ActiveCfg = Release|Any CPU
+		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
