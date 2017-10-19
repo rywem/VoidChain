@@ -3,11 +3,48 @@ using System.Numerics;
 using VoidChainLibrary.Objects;
 namespace VoidChainLibrary.Blockchain
 {
-    
+
+    public class VoidChain
+    {
+
+		byte[] hash1 = new byte[32];
+		byte[] hash2 = new byte[32];
+
+		string timestamp; //max length 255
+		string pubkey = string.Empty; //max length 132
+		//uint timestamp_len = 0;
+		//uint scriptSig_len = 0;
+		//uint pubkey_len = 0;
+		//uint pubkeyScript_len = 0;
+		uint nBits = 0;
+        Transaction transaction;
+        GenesisBlock Block;
+        public VoidChain(string publicKey, string timeStamp)
+        {
+            this.pubkey = publicKey;
+            this.timestamp = timeStamp;
+        }
+
+        public void Initialize()
+        {
+            if (pubkey.Length != 65)
+                throw new VoidChainException("Invalid public key");
+            if(timestamp.Length > 254 || timestamp.Length <= 0)
+                throw new VoidChainException("Invalid timestamp");
+            transaction.InitTransaction(Block.COIN);
+        }
+        public void Execute()
+        {
+            
+        }
+    }
+
+
+
     public class GenesisBlock
     {
-        public const ulong COIN = 100000000;
-		public const ulong CENT = 1000000;
+        public ulong COIN { get; } = 100000000;
+        public ulong CENT { get; } = 1000000;
 
         public uint OP_CHECKSIG { get; set; } = 172; //expressed as 0xAC
         public bool GenerateBlock { get; set; } = false;
