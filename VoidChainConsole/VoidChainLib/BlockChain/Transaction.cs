@@ -20,7 +20,7 @@ namespace VoidChainLib.BlockChain
 
 		/* Output */
 		public byte numOutputs { get; set; } //program assumes one output
-		public ulong outValue { get; set; }
+		public ulong outValue { get; set; }        
 		public List<byte> pubkeyScript { get; set; }
 
 		/* Final */
@@ -44,16 +44,12 @@ namespace VoidChainLib.BlockChain
 			this.locktime = 0;
 			this.prevoutIndex = 0xFFFFFFFF;
 			this.sequence = 0xFFFFFFFF;
-			this.outValue = 50 * COIN;
-
-			//prevOutput = new List<byte>(32);
+			this.outValue = 50 * COIN;			
 			//initialize a new byte array to zero, as there are no previous output values 
 			for (int i = 0; i < prevOutput.Count; i++)
 			{
 				prevOutput[i] = 0;
-			}
-			//pubkeyScript = new List<byte>(65);
-			//merkleHash = new List<byte>(32);
+			}			
 		}
 	}
 }

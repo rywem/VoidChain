@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using VoidChainLib.Objects;
 
 namespace VoidChainLib.BlockChain
@@ -12,7 +13,7 @@ namespace VoidChainLib.BlockChain
 		string timestamp; //max length 255
 		string pubkey = string.Empty; //max length 132
 		uint nBits = 0;
-		uint pubkeyScript_len;
+		uint pubkeyScript_len = 0;
 		public uint pubkey_len { get; set; }
 
 		uint scriptSig_len;
@@ -47,6 +48,10 @@ namespace VoidChainLib.BlockChain
 			//transaction->pubkeyScript[0] = 0x41; // A public key is 32 bytes X coordinate, 
 			//32 bytes Y coordinate and one byte 0x04, so 65 bytes i.e 0x41 in Hex.
 			transaction.pubkeyScript.Add((byte)0x41);
+            pubkey_len += 1;
+            pubkeyScript_len = (uint)pubkey.Length;  //hex2bin(transaction.pubkeyScript + 1, pubkey, pubkey_len);
+            //Goes after the pubkeyScript is filled out
+            transaction.pubkeyScript[(int)pubkeyScript_len++] = Block.OP_CHECKSIG.ToByte();
 
 			//pubkeyScript_len = transaction
 			//transaction.pubkeyScript = new byte[]();
@@ -56,10 +61,17 @@ namespace VoidChainLib.BlockChain
 			//transaction.pubkeyScript = malloc((pubkey_len+2)*sizeof(uint8_t));
 
 		}
-		//hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
-		//returns a size
 
-		public void Execute()
+        private uint hex2bin(List<byte> p, string pubkey, uint pubkey_len)
+        {
+            int ret = 0;
+            uint retlen = len;
+        }
+
+        //hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
+        //returns a size
+
+        public void Execute()
 		{
 
 		}
