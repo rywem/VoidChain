@@ -32,6 +32,5 @@ namespace VoidChainLib.BlockChain
             Transaction.Initialize(COIN);
             return this;
         }
-
     }
 }
