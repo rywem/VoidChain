@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace VoidChainLib.Objects
 {
 	public static class Extensions
@@ -20,7 +22,27 @@ namespace VoidChainLib.Objects
 			return new string(c);
 		}
 
-		public static byte[] HexToBytes(this string str)
+        public static List<string> ToHexList(this byte[] bytes)
+        {
+            char[] c = new char[bytes.Length * 2];
+
+            byte b;
+            List<string> output = new List<string>();
+            for (int bx = 0, cx = 0; bx < bytes.Length; ++bx, ++cx)
+            {
+                List<char> input = new List<char>();
+                b = ((byte)(bytes[bx] >> 4));
+                c[cx] = (char)(b > 9 ? b + 0x37 + 0x20 : b + 0x30);
+                input.Add(c[cx]);
+                b = ((byte)(bytes[bx] & 0x0F));
+                c[++cx] = (char)(b > 9 ? b + 0x37 + 0x20 : b + 0x30);
+                input.Add(c[cx]);
+                output.Add(new string(input.ToArray()));
+            }
+            return output;
+        }
+
+        public static byte[] HexToBytes(this string str)
 		{
 			if (str.Length == 0 || str.Length % 2 != 0)
 				return new byte[0];

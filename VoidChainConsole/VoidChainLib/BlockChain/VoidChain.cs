@@ -46,7 +46,7 @@ namespace VoidChainLib.BlockChain
 
 			//transaction->pubkeyScript[0] = 0x41; // A public key is 32 bytes X coordinate, 
 			//32 bytes Y coordinate and one byte 0x04, so 65 bytes i.e 0x41 in Hex.
-			transaction.pubkeyScript[0] = (byte)0x41;
+			transaction.pubkeyScript.Add((byte)0x41);
 
 			//pubkeyScript_len = transaction
 			//transaction.pubkeyScript = new byte[]();
