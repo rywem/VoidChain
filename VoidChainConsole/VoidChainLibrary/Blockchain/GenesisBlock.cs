@@ -14,19 +14,12 @@ namespace VoidChainLibrary.Blockchain
 
         public uint StartNonce { get; set; } = 0;
         public uint UnixTime { get; set; } = 0;
-        public Transaction Tx; 
+        public Transaction transaction { get; set; }
 
-        private void ByteSwap(int length, ref byte[] buf)
+        public GenesisBlock(bool initialize = false)
         {
-            int i;
-            byte temp;
-
-            for (i = 0; i < length; i++)
-            {
-                temp = buf[i];
-                buf[i] = buf[length - i - 1];
-                buf[length - i - 1] = temp;
-            }
+            if(initialize == true)
+                transaction.InitTransaction(COIN);
         }
 
     }
@@ -34,24 +27,36 @@ namespace VoidChainLibrary.Blockchain
     public struct Transaction
     {
         /* Hash of TX */
-        byte[] merkleHash;// = new uint[32];
+        public byte[][] merkleHash;// = new uint[32];
         /* Tx serialization before hashing */
-        byte[] serializedData; //uses ref, or * pointer in C
+        public byte[] serializedData; //uses ref, or * pointer in C
         /* Tx Version */
-        uint version;
+        public uint version;
         /* Inputs */
-        byte[] numInputs; //program assumes one input
-        byte[] prevOutput;
-        uint prevoutIndex;
-        byte[] scriptSig; //uses ref, * pointer in C
-        uint sequence;
+        public byte numInputs; //program assumes one input
+        public byte[] prevOutput;
+        public uint prevoutIndex;
+        public byte[] scriptSig; //uses ref, * pointer in C
+        public uint sequence;
 
         /* Output */
-        byte[] numOuputs; //program assumes one output
-        ulong outValue;
-        byte[] pubkeyScript;
+        public byte numOutputs; //program assumes one output
+        public ulong outValue;
+        public byte[] pubkeyScript;
 
         /* Final */
-        uint lockTime; 
+        public uint locktime; 
+
+        public void InitTransaction(ulong COIN)
+        {
+			// Set some initial data that will remain constant throughout the program
+			this.version = 1;
+			this.numInputs = 1;
+			this.numOutputs = 1;
+			this.locktime = 0;
+			this.prevoutIndex = 0xFFFFFFFF;
+			this.sequence = 0xFFFFFFFF;
+			this.outValue = 50 * COIN;
+        }
     }
 }
