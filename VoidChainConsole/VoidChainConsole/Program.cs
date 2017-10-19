@@ -6,8 +6,9 @@ namespace VoidChainConsole
     {
         public static void Main(string[] args)
         {
-            byte[] b = new byte[] { 12, 6 };
-            Console.WriteLine(b.ToHex()[0]);
+            byte[] b = new byte[] { 2, 6, 8, 15, 2 };
+            string hex = b.ToHex();
+            Console.WriteLine(hex);
         }
     }
 }
