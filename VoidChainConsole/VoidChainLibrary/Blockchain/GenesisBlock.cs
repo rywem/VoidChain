@@ -57,6 +57,16 @@ namespace VoidChainLibrary.Blockchain
 			this.prevoutIndex = 0xFFFFFFFF;
 			this.sequence = 0xFFFFFFFF;
 			this.outValue = 50 * COIN;
+
+            prevOutput = new byte[32];
+            //initialize a new byte array to zero, as there are no previous output values 
+            for (int i = 0; i < prevOutput.Length; i++)
+            {
+                prevOutput[i] = 0;
+            }
+
+            merkleHash = new byte[32][];
+
         }
     }
 }
