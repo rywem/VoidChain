@@ -2,14 +2,14 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{B9D82EED-7C9D-45AD-B6E3-B6853B5D8BEF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>VoidChainConsole</RootNamespace>
-    <AssemblyName>VoidChainConsole</AssemblyName>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{24906CEB-9374-44D6-8DE6-1950963BA238}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>VoidChainLib</RootNamespace>
+    <AssemblyName>VoidChainLib</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -17,29 +17,29 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ExternalConsole>true</ExternalConsole>
-    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ExternalConsole>true</ExternalConsole>
-    <PlatformTarget>x86</PlatformTarget>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BlockChain\Block.cs" />
+    <Compile Include="BlockChain\Transaction.cs" />
+    <Compile Include="BlockChain\VoidChain.cs" />
+    <Compile Include="Objects\VoidChainException.cs" />
+    <Compile Include="Objects\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VoidChainLib\VoidChainLib.csproj">
-      <Project>{24906CEB-9374-44D6-8DE6-1950963BA238}</Project>
-      <Name>VoidChainLib</Name>
-    </ProjectReference>
+    <Folder Include="BlockChain\" />
+    <Folder Include="Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

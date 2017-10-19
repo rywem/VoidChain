@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoidChainConsole", "VoidCha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoidChainLibrary", "VoidChainLibrary\VoidChainLibrary.csproj", "{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoidChainLib", "VoidChainLib\VoidChainLib.csproj", "{24906CEB-9374-44D6-8DE6-1950963BA238}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +21,9 @@ Global
 		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Debug|x86.Build.0 = Debug|Any CPU
 		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Release|x86.ActiveCfg = Release|Any CPU
 		{A06F253F-C026-4EFF-9FEC-4EDA9899E8DA}.Release|x86.Build.0 = Release|Any CPU
+		{24906CEB-9374-44D6-8DE6-1950963BA238}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24906CEB-9374-44D6-8DE6-1950963BA238}.Debug|x86.Build.0 = Debug|Any CPU
+		{24906CEB-9374-44D6-8DE6-1950963BA238}.Release|x86.ActiveCfg = Release|Any CPU
+		{24906CEB-9374-44D6-8DE6-1950963BA238}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

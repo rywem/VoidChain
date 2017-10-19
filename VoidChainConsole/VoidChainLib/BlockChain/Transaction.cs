@@ -1,13 +1,13 @@
 ﻿using System;
-namespace VoidChainLibrary.Blockchain
+namespace VoidChainLib.BlockChain
 {
 	public class Transaction
 	{
 		/* Hash of TX */
 		public byte[] merkleHash { get; set; }
-	    /* Tx serialization before hashing */
+		/* Tx serialization before hashing */
 		public byte serializedData { get; set; } //uses ref, or * pointer in C
-	    /* Tx Version */
+												 /* Tx Version */
 		public uint version { get; set; }
 		/* Inputs */
 		public byte numInputs { get; set; } //program assumes one input
@@ -19,7 +19,7 @@ namespace VoidChainLibrary.Blockchain
 		/* Output */
 		public byte numOutputs { get; set; } //program assumes one output
 		public ulong outValue { get; set; }
-        public byte[] pubkeyScript { get; set; }
+		public byte[] pubkeyScript { get; set; }
 
 		/* Final */
 		public uint locktime;
@@ -41,7 +41,7 @@ namespace VoidChainLibrary.Blockchain
 			{
 				prevOutput[i] = 0;
 			}
-            pubkeyScript = new byte[65];
+			pubkeyScript = new byte[65];
 			merkleHash = new byte[32];
 		}
 	}
