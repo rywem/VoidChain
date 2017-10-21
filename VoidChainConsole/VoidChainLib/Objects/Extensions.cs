@@ -1,15 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace VoidChainLib.Objects
 {
 	public static class Extensions
 	{
 
+        public static string GetSHA256(this string input)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(input);
+            return bytes.GetSHA256AsString();
+        }
+
+        public static string GetSHA256AsString(this byte[] input)
+        {
+            byte[] hash = input.GetSHA256();
+			string hashString = string.Empty;
+			foreach (byte x in hash)
+			{
+				hashString += String.Format("{0:x2}", x);
+			}
+			return hashString;
+        }
+        public static byte[] GetSHA256(this byte[] bytes)
+        {
+			SHA256Managed hashstring = new SHA256Managed();
+			return hashstring.ComputeHash(bytes);
+        }
         public static IEnumerable<byte> ToBytes(this uint number)
         {
-            //var x = number.SelectMany(BitConverter.GetBytes);
             foreach (var item in BitConverter.GetBytes(number))
             {
                 yield return item;
@@ -98,7 +120,7 @@ namespace VoidChainLib.Objects
         /// This might crash. I don't fully understand its purpose yet. 
         /// </summary>
         /// <param name="buf">Buffer.</param>
-        public static void ByteSwap(this byte[] buf)
+        public static byte[] ByteSwap(this byte[] buf)
         {
             int i;
             byte temp;
@@ -110,6 +132,7 @@ namespace VoidChainLib.Objects
                 buf[i] = buf[length - i - 1];
                 buf[length - i - 1] = temp;
             }
+            return buf;
         }
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using VoidChainLib.Objects;
 
 namespace VoidChainLib.BlockChain
@@ -7,8 +8,8 @@ namespace VoidChainLib.BlockChain
 	public class VoidChain
 	{
 
-		byte[] hash1 = new byte[32];
-		byte[] hash2 = new byte[32];
+        byte[] hash1;
+        byte[] hash2;
 
 		string timestamp; //max length 255
 		string pubkey = string.Empty; //max length 132
@@ -110,7 +111,16 @@ namespace VoidChainLib.BlockChain
             transaction.serializedData.Add(transaction.numOutputs);
             transaction.serializedData.AddRange(transaction.outValue.ToBytes());
             transaction.serializedData.AddRange(transaction.pubkeyScript);
-		}
+            transaction.serializedData.AddRange(transaction.locktime.ToBytes());
+
+            // Now that the data is serialized
+            // we hash it with SHA256 and then hash that result to get merkle hash
+            hash1 = transaction.serializedData.ToArray().GetSHA256();
+            hash2 = hash1.GetSHA256();
+            //I think?
+            transaction.merkleHash = transaction.merkleHash.ToArray().ByteSwap().ToList();
+
+        }
         //hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
         //returns a size
 
