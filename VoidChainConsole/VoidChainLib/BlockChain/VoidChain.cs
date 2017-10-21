@@ -50,10 +50,7 @@ namespace VoidChainLib.BlockChain
 			transaction.pubkeyScript.Add((byte)0x41);
             pubkey_len += 1;
             pubkeyScript_len = (uint)pubkey.Length;  //hex2bin(transaction.pubkeyScript + 1, pubkey, pubkey_len);
-            for (int i = 0; i < pubkeyScript_len; i++)
-            {
-                transaction.pubkeyScript[i] = 0;
-            }
+
             //Goes after the pubkeyScript is filled out
             transaction.pubkeyScript[(int)pubkeyScript_len++] = Block.OP_CHECKSIG.ToByte();
 
