@@ -119,7 +119,19 @@ namespace VoidChainLib.BlockChain
             hash2 = hash1.GetSHA256();
             //I think?
             transaction.merkleHash = transaction.merkleHash.ToArray().ByteSwap().ToList();
+            string merkleHash = transaction.merkleHash.ToArray().ToHex();
+            string txScriptSig = transaction.scriptSig.ToArray().ToHex();
+            string pubScriptSig = transaction.pubkeyScript.ToArray().ToHex();
 
+            if(Block.GenerateBlock)
+            {
+                if(Block.UnixTime == 0)
+                {
+                    Block.UnixTime = DateTime.UtcNow.ToUnixTime();
+                }
+
+
+            }
         }
         //hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
         //returns a size
