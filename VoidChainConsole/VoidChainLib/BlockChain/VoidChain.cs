@@ -43,9 +43,9 @@ namespace VoidChainLib.BlockChain
 			this.Block = new Block().Genesis();
 			transaction = this.Block.Transaction;
 
-			//pubkey_len = (uint)pubkey.Length >> 1;
-			//timestamp_len = (uint)timestamp.Length;
-			//scriptSig_len = timestamp_len;
+			pubkey_len = (uint)pubkey.Length >> 1;
+			timestamp_len = (uint)timestamp.Length;
+			scriptSig_len = timestamp_len;
 			//Encode pubkey to binary and prepend pubkey size, then append the OP_CHECKSIG byte         
 			//transaction->pubkeyScript[0] = 0x41; // A public key is 32 bytes X coordinate, 
 			//32 bytes Y coordinate and one byte 0x04, so 65 bytes i.e 0x41 in Hex.
@@ -62,28 +62,55 @@ namespace VoidChainLib.BlockChain
             if (nBits <= 255)
             {
                 transaction.scriptSig.Add(0x01);
-                transaction.scriptSig.Add((byte)nBits);
             }
             else if (nBits <= 65535)
             {
                 transaction.scriptSig.Add(0x02);
-                transaction.scriptSig.Add((byte)nBits); //I think?
-				//transaction->scriptSig[scriptSig_pos++] = 0x02;
-				//memcpy(transaction->scriptSig + scriptSig_pos, &nBits, 2);
-				//scriptSig_pos += 2;
             }
             else if (nBits <= 16777215)
             { 
-                
+                transaction.scriptSig.Add(0x03);
             }
             else
             {
-                
+                transaction.scriptSig.Add(0x04);
             }
+			transaction.scriptSig.AddRange(nBits.ToBytes()); //I think?
+
+            // Important! In the Bitcoin code there is a statement 'CBigNum(4)' 
+            // i've been wondering for a while what it is but			
+            // seeing as alt-coins keep it the same, we'll do it here as well		
+            // It should essentially mean PUSH 1 byte on the stack which in this case is 0x04 or just 4
+
+            transaction.scriptSig.Add(0x01);
+            transaction.scriptSig.Add(0x04);
+            transaction.scriptSig.Add((byte)scriptSig_len);
+            //this step may not be necessary
+			uint serializedLen = 4// tx version
+                            	+ 1   // number of inputs
+                            	+ 32  // hash of previous output
+                            	+ 4   // previous output's index
+                            	+ 1   // 1 byte for the size of scriptSig
+                            	+ scriptSig_len
+                            	+ 4   // size of sequence
+                            	+ 1   // number of outputs
+                            	+ 8   // 8 bytes for coin value
+                            	+ 1   // 1 byte to represent size of the pubkey Script
+                            	+ pubkeyScript_len
+                            	+ 4;   // 4 bytes for lock time
+
+            // Now let's serialize the data
+            transaction.serializedData.AddRange(transaction.version.ToBytes());
+            transaction.serializedData.Add(transaction.numInputs);
+            transaction.serializedData.AddRange(transaction.prevOutput);
+            transaction.serializedData.AddRange(transaction.prevoutIndex.ToBytes());
+            transaction.serializedData.AddRange(scriptSig_len.ToBytes());
+            transaction.serializedData.AddRange(transaction.scriptSig);
+            transaction.serializedData.AddRange(transaction.sequence.ToBytes());
+            transaction.serializedData.Add(transaction.numOutputs);
+            transaction.serializedData.AddRange(transaction.outValue.ToBytes());
+            transaction.serializedData.AddRange(transaction.pubkeyScript);
 		}
-
-
-
         //hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
         //returns a size
 

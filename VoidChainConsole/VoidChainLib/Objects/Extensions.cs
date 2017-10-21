@@ -1,10 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VoidChainLib.Objects
 {
 	public static class Extensions
 	{
+
+        public static IEnumerable<byte> ToBytes(this uint number)
+        {
+            //var x = number.SelectMany(BitConverter.GetBytes);
+            foreach (var item in BitConverter.GetBytes(number))
+            {
+                yield return item;
+            }
+        }
+
+		public static IEnumerable<byte> ToBytes(this ulong number)
+		{
+			//var x = number.SelectMany(BitConverter.GetBytes);
+			foreach (var item in BitConverter.GetBytes(number))
+			{
+				yield return item;
+			}
+		}
+		public static uint ToUInt32(this IEnumerable<byte> _bytes)
+		{
+			return ToUInt32(_bytes.ToArray());
+		}
+		public static uint ToUInt32(this List<byte> _bytes)
+		{
+			return ToUInt32(_bytes.ToArray());
+		}
+
+        public static uint ToUInt32(this byte[] _bytes)
+        {
+            return BitConverter.ToUInt32(_bytes, 0);
+        }
 		public static string ToHex(this byte[] bytes)
 		{
 			char[] c = new char[bytes.Length * 2];
