@@ -59,22 +59,6 @@ namespace VoidChainLib.BlockChain
 			this.sequence = 0xFFFFFFFF;
 			this.outValue = 50 * COIN;
             //initialize a new byte array to zero, as there are no previous output values 
-
-            if (prevOutput == null || prevOutput.Count == 0)
-            {
-                for (int i = 0; i < DEFAULT_PREV_OUTPUT_LENGTH; i++)
-                {
-                    prevOutput.Add(0);
-                }
-            }
-
-            if(pubkeyScript == null || pubkeyScript.Count == 0)
-            {
-                for (int i = 0; i < DEFAULT_PUBKEYSCRIPT_LENGTH; i++)
-                {
-                    pubkeyScript.Add(0);
-                }
-            }
 		}
 	}
 }

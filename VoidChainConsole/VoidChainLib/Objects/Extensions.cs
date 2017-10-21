@@ -62,38 +62,22 @@ namespace VoidChainLib.Objects
 			return buffer;
 		}
 
-		/// <summary>
-		/// This might crash. I don't fully understand its purpose yet. 
-		/// </summary>
-		/// <param name="buf">Buffer.</param>
-		public static void ByteSwap(this byte[] buf)
-		{
-			int i;
-			byte temp;
-			int length = buf.Length;
+        /// <summary>
+        /// This might crash. I don't fully understand its purpose yet. 
+        /// </summary>
+        /// <param name="buf">Buffer.</param>
+        public static void ByteSwap(this byte[] buf)
+        {
+            int i;
+            byte temp;
+            int length = buf.Length;
 
-			for (i = 0; i < (length / 2); i++)
-			{
-				temp = buf[i];
-				buf[i] = buf[length - i - 1];
-				buf[length - i - 1] = temp;
-			}
-		}
-
-		public static byte ToByte(this uint number)
-		{
-			return Convert.ToByte(number);
-		}
-
-		public static uint ToUint32(this byte _byte)
-		{
-			return Convert.ToUInt32(_byte);
-		}
-
-		public static ulong ToULong(this byte _byte)
-		{
-			return Convert.ToUInt64(_byte);
-		}
-
+            for (i = 0; i < (length / 2); i++)
+            {
+                temp = buf[i];
+                buf[i] = buf[length - i - 1];
+                buf[length - i - 1] = temp;
+            }
+        }
 	}
 }
