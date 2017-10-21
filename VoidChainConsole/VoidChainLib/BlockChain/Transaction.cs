@@ -26,13 +26,26 @@ namespace VoidChainLib.BlockChain
 		/* Final */
 		public uint locktime;
 
+        const int DEFAULT_HASH_LENGTH = 32;
+        const int DEFAULT_PREV_OUTPUT_LENGTH = 32;
+        const int DEFAULT_PUBKEYSCRIPT_LENGTH = 65;
         public Transaction()
         {
-            this.merkleHash = new List<byte>(32);
-            this.serializedData = new List<byte>();
-            this.prevOutput = new List<byte>(32);
-            this.scriptSig = new List<byte>();
-            this.pubkeyScript = new List<byte>(65);
+            if(this.merkleHash == null)
+                this.merkleHash = new List<byte>(DEFAULT_HASH_LENGTH);
+            if(this.serializedData == null)
+                this.serializedData = new List<byte>();
+            if(this.prevOutput == null)    
+                this.prevOutput = new List<byte>(DEFAULT_PREV_OUTPUT_LENGTH);
+            if(this.scriptSig == null)
+                this.scriptSig = new List<byte>();
+            if(this.pubkeyScript == null)
+               this.pubkeyScript = new List<byte>(DEFAULT_PUBKEYSCRIPT_LENGTH);
+        }
+
+        public Transaction(List<byte> previousOutput)
+        {
+            this.prevOutput = previousOutput;
         }
 
 		public void Initialize(ulong COIN)
@@ -44,12 +57,24 @@ namespace VoidChainLib.BlockChain
 			this.locktime = 0;
 			this.prevoutIndex = 0xFFFFFFFF;
 			this.sequence = 0xFFFFFFFF;
-			this.outValue = 50 * COIN;			
-			//initialize a new byte array to zero, as there are no previous output values 
-			for (int i = 0; i < prevOutput.Count; i++)
-			{
-				prevOutput[i] = 0;
-			}			
+			this.outValue = 50 * COIN;
+            //initialize a new byte array to zero, as there are no previous output values 
+
+            if (prevOutput == null || prevOutput.Count == 0)
+            {
+                for (int i = 0; i < DEFAULT_PREV_OUTPUT_LENGTH; i++)
+                {
+                    prevOutput.Add(0);
+                }
+            }
+
+            if(pubkeyScript == null || pubkeyScript.Count == 0)
+            {
+                for (int i = 0; i < DEFAULT_PUBKEYSCRIPT_LENGTH; i++)
+                {
+                    pubkeyScript.Add(0);
+                }
+            }
 		}
 	}
 }

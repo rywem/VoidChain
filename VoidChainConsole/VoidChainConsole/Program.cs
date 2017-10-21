@@ -6,12 +6,9 @@ namespace VoidChainConsole
     {
         public static void Main(string[] args)
         {
-            byte[] b = new byte[] { 2, 6, 8, 15, 2 };
-            var hex = b.ToHexList();
-            foreach (var item in hex)
-            {
-                Console.WriteLine(item);
-            }
+
+            VoidChainLib.BlockChain.Block block = new VoidChainLib.BlockChain.Block();
+            var gen = block.Genesis();
            // Console.WriteLine(hex);
         }
     }

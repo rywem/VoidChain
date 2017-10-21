@@ -29,6 +29,7 @@ namespace VoidChainLib.BlockChain
 
         public Block Genesis()
         {
+            this.Transaction = new Transaction();
             Transaction.Initialize(COIN);
             return this;
         }

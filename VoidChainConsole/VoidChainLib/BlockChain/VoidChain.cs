@@ -43,7 +43,7 @@ namespace VoidChainLib.BlockChain
 
 
 			//Encode pubkey to binary and prepend pubkey size, then append the OP_CHECKSIG byte         
-			transaction.pubkeyScript = ((pubkey_len + 2)*sizeof(byte)).ToByte();
+			//transaction.pubkeyScript = ((pubkey_len + 2)*sizeof(byte)).ToByte();
 
 			//transaction->pubkeyScript[0] = 0x41; // A public key is 32 bytes X coordinate, 
 			//32 bytes Y coordinate and one byte 0x04, so 65 bytes i.e 0x41 in Hex.
@@ -66,11 +66,7 @@ namespace VoidChainLib.BlockChain
 
 		}
 
-        private uint hex2bin(List<byte> p, string pubkey, uint pubkey_len)
-        {
-            int ret = 0;
-            uint retlen = len;
-        }
+
 
         //hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
         //returns a size
