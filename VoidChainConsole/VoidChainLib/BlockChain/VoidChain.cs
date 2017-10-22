@@ -22,7 +22,7 @@ namespace VoidChainLib.BlockChain
 		public Block Block { get; set; }
 		public Transaction transaction { get; set; }
 
-        public List<byte> block_header { get; set; }
+        List<byte> block_header;//{ get; set; }
         public List<byte> block_hash1 { get; set; }
 		public List<byte> block_hash2 { get; set; }
 
@@ -127,7 +127,8 @@ namespace VoidChainLib.BlockChain
             string merkleHash = transaction.merkleHash.ToArray().ToHex();
             string txScriptSig = transaction.scriptSig.ToArray().ToHex();
             string pubScriptSig = transaction.pubkeyScript.ToArray().ToHex();
-
+            uint counter = 0; 
+            uint start = DateTime.Now.ToUnixTime();
             if(Block.GenerateBlock)
             {
                 if(Block.UnixTime == 0)
@@ -164,8 +165,62 @@ namespace VoidChainLib.BlockChain
                     nonce.Add(0);
                 }
                 block_header.AddRange(nonce);
-                //uint pNonce = 
+                //I'm not certain if these steps are necessary, but lets do it for now.
+                uint pNonce = block_header.Skip(76).Take(4).ToList().ToUInt32();
+                uint pUnixtime = block_header.Skip(68).Take(4).ToList().ToUInt32();
+                bool cont = true;
+                while(cont)
+                {
+                    block_hash1 = block_header.ToArray().GetSHA256().ToList();
+                    block_hash2 = block_hash1.ToArray().GetSHA256().ToList();
+                    uint check = block_hash2.Skip(28).Take(4).ToList().ToArray().ToUInt32();
+
+                    if(check == 0)
+                    {
+                        var _bytes = block_hash2.ToArray().ByteSwap();
+                        Block.BlockHash = _bytes.ToHex();
+
+                        cont = false;
+                        break;
+                    }
+                    Block.StartNonce++;
+                    counter++;
+                    uint curTime = DateTime.Now.ToUnixTime();
+                    if(curTime - start >= 1)
+                    {
+                        counter = 0;
+                        start = curTime;
+                    }
+                    // insert new nonce into array
+                    UpdateByteList(Block.StartNonce, 76, ref block_header);
+                    var newNonce = Block.StartNonce.ToBytes().ToArray();
+                    for (int i = 0; i < newNonce.Length; i++)
+                    {
+                        block_header[76 + i] = newNonce[i];
+                    }
+
+                    if(Block.StartNonce >= uint.MaxValue)
+                    {
+                        Block.UnixTime++;
+						var newTime = Block.UnixTime.ToBytes().ToArray();
+						for (int i = 0; i < newTime.Length; i++)
+						{
+							block_header[68 + i] = newTime[i];
+                            Block.StartNonce = 0; //Bug? 
+						}
+                    }
+                }
             }
+        }
+
+        public void UpdateByteList(uint newValue, int startIndex, ref List<byte> listToUpdate)
+        {
+            //List<byte> temp = listToUpdate;
+            var newvalues = newValue.ToBytes().ToArray();
+			for (int i = 0; i < newvalues.Length; i++)
+			{
+				listToUpdate[startIndex + i] = newvalues[i];
+			}
         }
 
         public void Execute()

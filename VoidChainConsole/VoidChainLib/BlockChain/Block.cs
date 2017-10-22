@@ -21,7 +21,7 @@ namespace VoidChainLib.BlockChain
         public ulong CENT { get; } = 1000000;
         public uint OP_CHECKSIG { get; set; } = 172; //expressed as 0xAC
         public bool GenerateBlock { get; set; } = false;
-
+        public string BlockHash { get; set; }
         public uint StartNonce { get; set; } = 0;
         public uint UnixTime { get; set; } = 0;
         public Transaction Transaction { get; set; }
