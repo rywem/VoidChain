@@ -22,6 +22,11 @@ namespace VoidChainLib.BlockChain
 		public Block Block { get; set; }
 		public Transaction transaction { get; set; }
 
+        public List<byte> block_header { get; set; }
+        public List<byte> block_hash1 { get; set; }
+		public List<byte> block_hash2 { get; set; }
+
+
 		public VoidChain(string publicKey, string timeStamp)
 		{
 			this.pubkey = publicKey;
@@ -130,11 +135,38 @@ namespace VoidChainLib.BlockChain
                     Block.UnixTime = DateTime.UtcNow.ToUnixTime();
                 }
 
+                uint blockversion = 1;
 
+                List<byte> vers = blockversion.ToBytes().ToList();
+                for (int i = vers.Count; i < 4; i++)
+                {
+                    block_header.Add(0);
+                }
+                block_header.AddRange(vers);
+                //byte swap again
+                transaction.merkleHash = transaction.merkleHash.ToArray().ByteSwap().ToList();
+                block_header.AddRange(transaction.merkleHash);
+                List<byte> time = Block.UnixTime.ToBytes().ToList();
+                for (int i = time.Count; i < 4; i++)
+                {
+                    time.Add(0);
+                }
+                block_header.AddRange(time);
+                List<byte> nbit = nBits.ToBytes().ToList();
+                for (int i = nbit.Count; i < 4; i++)
+                {
+                    nbit.Add(0);
+                }
+                block_header.AddRange(nbit);
+                List<byte> nonce = Block.StartNonce.ToBytes().ToList();
+                for (int i = nonce.Count; i < 4; i++)
+                {
+                    nonce.Add(0);
+                }
+                block_header.AddRange(nonce);
+                //uint pNonce = 
             }
         }
-        //hex2bin(transaction->pubkeyScript+1, pubkey, pubkey_len);
-        //returns a size
 
         public void Execute()
 		{

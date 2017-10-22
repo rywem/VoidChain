@@ -8,7 +8,6 @@ namespace VoidChainLib.Objects
 {
 	public static class Extensions
 	{
-
         public static string GetSHA256(this string input)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(input);

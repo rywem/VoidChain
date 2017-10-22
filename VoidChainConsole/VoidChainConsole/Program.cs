@@ -8,6 +8,10 @@ namespace VoidChainConsole
     {
         public static void Main(string[] args)
         {
+
+            uint ten = 10;
+            Console.WriteLine(ten.ToSpecial());
+
             uint k = 16777315;
             //byte[] bb = k as byte[];
             //byte[] b = k.;
