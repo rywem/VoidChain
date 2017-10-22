@@ -10,6 +10,7 @@ namespace VoidChainConsole
         {
 
             VoidChainLib.BlockChain.VoidChain chain = new VoidChainLib.BlockChain.VoidChain();
+
             chain.Initialize();
 
             //Console.WriteLine(x.ToArray().ToUInt32());

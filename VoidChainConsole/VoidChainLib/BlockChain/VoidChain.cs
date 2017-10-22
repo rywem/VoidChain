@@ -5,22 +5,31 @@ using VoidChainLib.Objects;
 
 namespace VoidChainLib.BlockChain
 {
-	public class VoidChain
-	{
+    public class VoidChain
+    {
 
         byte[] hash1;
         byte[] hash2;
 
-		string timestamp; //max length 255
-		string pubkey = string.Empty; //max length 132
-		uint nBits = 0;
-		uint pubkeyScript_len = 0;
-		public uint pubkey_len { get; set; }
-
-		uint scriptSig_len;
-		public uint timestamp_len { get; set; }
-		public Block Block { get; set; }
-		public Transaction transaction { get; set; }
+        string timestamp; //max length 255
+        string pubkey = string.Empty; //max length 132
+        uint nBits = 0;
+        uint pubkeyScript_len = 0;
+        public uint pubkey_len { get; set; }
+        public string previousBlockHash { get; set; }
+        uint scriptSig_len;
+        public uint timestamp_len { get; set; }
+        public Block Block { get; set; }
+        public Transaction transaction
+        { 
+            get
+            {
+                return this.Block.Transaction;
+            }
+            set{
+                this.Block.Transaction = value;
+            }
+        }
 
         List<byte> block_header;//{ get; set; }
         public List<byte> block_hash1 { get; set; }
@@ -54,7 +63,7 @@ namespace VoidChainLib.BlockChain
 				throw new VoidChainException("Invalid timestamp");
 			//initialize the genesis block and set the initial transaction values
 			this.Block = new Block().Genesis();
-			transaction = this.Block.Transaction;
+			//transaction = this.Block.Transaction;
 
 			pubkey_len = (uint)pubkey.Length >> 1;
 			timestamp_len = (uint)timestamp.Length;
@@ -130,12 +139,13 @@ namespace VoidChainLib.BlockChain
             hash1 = transaction.serializedData.ToArray().GetSHA256();
             hash2 = hash1.GetSHA256();
             //I think?
-            transaction.merkleHash = transaction.merkleHash.ToArray().ByteSwap().ToList();
+            transaction.merkleHash = hash2.ToArray().ByteSwap().ToList();
             string merkleHash = transaction.merkleHash.ToArray().ToHex();
             string txScriptSig = transaction.scriptSig.ToArray().ToHex();
             string pubScriptSig = transaction.pubkeyScript.ToArray().ToHex();
             uint counter = 0; 
             uint start = DateTime.Now.ToUnixTime();
+            block_header = new List<byte>();
             if(Block.GenerateBlock)
             {
                 if(Block.UnixTime == 0)
@@ -151,6 +161,12 @@ namespace VoidChainLib.BlockChain
                     block_header.Add(0);
                 }
                 block_header.AddRange(vers);
+                int hcount = block_header.Count;
+                for (int i = block_header.Count; i < hcount+32; i++)
+                {
+                    //previous block hash should go here I think
+                    block_header.Add(0);
+                }
                 //byte swap again
                 transaction.merkleHash = transaction.merkleHash.ToArray().ByteSwap().ToList();
                 block_header.AddRange(transaction.merkleHash);
@@ -175,7 +191,7 @@ namespace VoidChainLib.BlockChain
                 //I'm not certain if these steps are necessary, but lets do it for now.
                 uint pNonce = block_header.Skip(76).Take(4).ToList().ToUInt32();
                 uint pUnixtime = block_header.Skip(68).Take(4).ToList().ToUInt32();
-                bool cont = true;
+
                 while(true)
                 {
                     block_hash1 = block_header.ToArray().GetSHA256().ToList();
@@ -186,7 +202,6 @@ namespace VoidChainLib.BlockChain
                     {
                         var _bytes = block_hash2.ToArray().ByteSwap();
                         Block.BlockHash = _bytes.ToHex();
-                        cont = false;
                         break;
                     }
 
@@ -213,11 +228,7 @@ namespace VoidChainLib.BlockChain
 					
                     // insert new nonce into array
                     UpdateByteList(Block.StartNonce, 76, ref block_header);
-                    var newNonce = Block.StartNonce.ToBytes().ToArray();
-                    for (int i = 0; i < newNonce.Length; i++)
-                    {
-                        block_header[76 + i] = newNonce[i];
-                    }
+
                 }
             }
         }

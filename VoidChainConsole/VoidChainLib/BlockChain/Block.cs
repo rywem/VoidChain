@@ -30,6 +30,7 @@ namespace VoidChainLib.BlockChain
         {
             this.Transaction = new Transaction();
             Transaction.Initialize(COIN);
+            this.GenerateBlock = true;
             return this;
         }
     }
