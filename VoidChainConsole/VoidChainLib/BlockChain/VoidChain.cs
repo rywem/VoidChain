@@ -26,12 +26,19 @@ namespace VoidChainLib.BlockChain
         public List<byte> block_hash1 { get; set; }
 		public List<byte> block_hash2 { get; set; }
 
+        public VoidChain()
+        {
+            for (int i = 0; i < 66; i++)
+            {
+                this.pubkey += "a";
+            }
 
-		public VoidChain(string publicKey, string timeStamp)
+			this.timestamp = DateTime.Now.ToString();
+        }
+        public VoidChain(string publicKey, string timeStamp)
 		{
 			this.pubkey = publicKey;
 			this.timestamp = timeStamp;
-			Initialize();
 		}
 
         public VoidChain(string publicKey, string timeStamp, uint nbit) : this(publicKey, timeStamp)
@@ -169,7 +176,7 @@ namespace VoidChainLib.BlockChain
                 uint pNonce = block_header.Skip(76).Take(4).ToList().ToUInt32();
                 uint pUnixtime = block_header.Skip(68).Take(4).ToList().ToUInt32();
                 bool cont = true;
-                while(cont)
+                while(true)
                 {
                     block_hash1 = block_header.ToArray().GetSHA256().ToList();
                     block_hash2 = block_hash1.ToArray().GetSHA256().ToList();
@@ -179,35 +186,37 @@ namespace VoidChainLib.BlockChain
                     {
                         var _bytes = block_hash2.ToArray().ByteSwap();
                         Block.BlockHash = _bytes.ToHex();
-
                         cont = false;
                         break;
                     }
-                    Block.StartNonce++;
-                    counter++;
+
+
+					if (Block.StartNonce == uint.MaxValue)
+					{
+						Block.UnixTime++;
+						var newTime = Block.UnixTime.ToBytes().ToArray();
+						UpdateByteList(Block.UnixTime, 68, ref block_header);
+						Block.StartNonce = 0; //Bug? 
+                    }
+                    else
+                    {
+						Block.StartNonce++;                       
+                    }
                     uint curTime = DateTime.Now.ToUnixTime();
+                    counter++;
+
                     if(curTime - start >= 1)
                     {
                         counter = 0;
                         start = curTime;
                     }
+					
                     // insert new nonce into array
                     UpdateByteList(Block.StartNonce, 76, ref block_header);
                     var newNonce = Block.StartNonce.ToBytes().ToArray();
                     for (int i = 0; i < newNonce.Length; i++)
                     {
                         block_header[76 + i] = newNonce[i];
-                    }
-
-                    if(Block.StartNonce >= uint.MaxValue)
-                    {
-                        Block.UnixTime++;
-						var newTime = Block.UnixTime.ToBytes().ToArray();
-						for (int i = 0; i < newTime.Length; i++)
-						{
-							block_header[68 + i] = newTime[i];
-                            Block.StartNonce = 0; //Bug? 
-						}
                     }
                 }
             }
