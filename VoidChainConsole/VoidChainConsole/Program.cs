@@ -12,9 +12,9 @@ namespace VoidChainConsole
             VoidChainLib.BlockChain.VoidChain chain = new VoidChainLib.BlockChain.VoidChain();
             chain.Initialize();
 
-            Console.WriteLine(x.ToArray().ToUInt32());
-            VoidChainLib.BlockChain.Block block = new VoidChainLib.BlockChain.Block();
-            var gen = block.Genesis();
+            //Console.WriteLine(x.ToArray().ToUInt32());
+            //VoidChainLib.BlockChain.Block block = new VoidChainLib.BlockChain.Block();
+            //var gen = block.Genesis();
            // Console.WriteLine(hex);
         }
     }

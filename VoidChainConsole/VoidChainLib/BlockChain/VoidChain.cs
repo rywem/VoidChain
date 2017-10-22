@@ -28,7 +28,7 @@ namespace VoidChainLib.BlockChain
 
         public VoidChain()
         {
-            for (int i = 0; i < 66; i++)
+            for (int i = 0; i < 65; i++)
             {
                 this.pubkey += "a";
             }
