@@ -39,12 +39,16 @@
     <Compile Include="Wallet\Wallet.cs" />
     <Compile Include="Cryptography\RSAKeyPairs.cs" />
     <Compile Include="Cryptography\MessageExchanger.cs" />
+    <Compile Include="Cryptography\Signer.cs" />
+    <Compile Include="Objects\Interfaces\IKey.cs" />
+    <Compile Include="Cryptography\Keys.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BlockChain\" />
     <Folder Include="Objects\" />
     <Folder Include="Cryptography\" />
     <Folder Include="Wallet\" />
+    <Folder Include="Objects\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
