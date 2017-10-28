@@ -39,7 +39,7 @@ namespace VoidChainLib.Cryptography
     public class Sender
     {
         public byte[] alicePublicKey;
-      
+        //https://msdn.microsoft.com/en-us/library/system.security.cryptography.ecdiffiehellmancng.aspx
         public void Run()
         {
             using(ECDiffieHellmanCng alice = new ECDiffieHellmanCng())
