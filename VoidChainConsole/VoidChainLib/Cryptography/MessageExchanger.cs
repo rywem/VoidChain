@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Security.Cryptography;
+using System.IO;
+
 namespace VoidChainLib.Cryptography
 {
     public class MessageExchanger
@@ -34,11 +36,11 @@ namespace VoidChainLib.Cryptography
         }
     }
 
-    public class Send
+    public class Sender
     {
         public byte[] alicePublicKey;
       
-        private void Initialize()
+        public void Run()
         {
             using(ECDiffieHellmanCng alice = new ECDiffieHellmanCng())
             {
@@ -46,7 +48,7 @@ namespace VoidChainLib.Cryptography
                 alice.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
                 alice.HashAlgorithm = CngAlgorithm.Sha256;
                 alicePublicKey = alice.PublicKey.ToByteArray();
-                Receive receive = new Receive();
+                Receive receive = new Receive(alicePublicKey);
                 CngKey k = CngKey.Import(receive.publicKey, CngKeyBlobFormat.EccPublicBlob);
                 byte[] aliceKey = alice.DeriveKeyMaterial(CngKey.Import(receive.publicKey, CngKeyBlobFormat.EccPublicBlob));
                 byte[] encryptedMessage = null;
@@ -56,12 +58,12 @@ namespace VoidChainLib.Cryptography
             }
         }
 
-        public void SendMessage(byte[] privKey, string secretMessage, out byte[] encryptedMessage, out byte[] initializationVector)
+        public void Send(byte[] privKey, string secretMessage, out byte[] encryptedMessage, out byte[] initializationVector)
         {
             using (Aes aes = new AesCryptoServiceProvider())
             {
                 aes.Key = privKey;
-                initializationVector = aes.iv;
+                initializationVector = aes.IV;
 
                 using(MemoryStream ciphertext = new MemoryStream())
                 {
@@ -81,15 +83,15 @@ namespace VoidChainLib.Cryptography
     public class Receive
     {
         public byte[] publicKey;
-        //private byte[] key;
-        public Receive()
+        private byte[] key;
+        public Receive(byte[] senderPubKey)
         {
             using(ECDiffieHellmanCng pub = new ECDiffieHellmanCng())
             {
                 pub.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
                 pub.HashAlgorithm = CngAlgorithm.Sha256;
                 publicKey = pub.PublicKey.ToByteArray();
-                pubKey = pub.DeriveKeyMaterial(CngKey.Import(PrivateManager.alicePublicKey, CngKeyBlobFormat.EccPublicBlob));
+                key = pub.DeriveKeyMaterial(CngKey.Import(senderPubKey, CngKeyBlobFormat.EccPublicBlob));
             }
         }
 

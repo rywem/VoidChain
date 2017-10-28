@@ -9,7 +9,9 @@ namespace VoidChainConsole
         public static void Main(string[] args)
         {
 
-            VoidChainLib.Cryptography.
+            VoidChainLib.Cryptography.Sender sender = new VoidChainLib.Cryptography.Sender();
+            sender.Run();
+            Console.ReadLine();
 
             VoidChainLib.BlockChain.VoidChain chain = new VoidChainLib.BlockChain.VoidChain();
 
