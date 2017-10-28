@@ -36,11 +36,15 @@
     <Compile Include="BlockChain\VoidChain.cs" />
     <Compile Include="Objects\VoidChainException.cs" />
     <Compile Include="Objects\Extensions.cs" />
+    <Compile Include="Wallet\Wallet.cs" />
+    <Compile Include="Cryptography\RSAKeyPairs.cs" />
+    <Compile Include="Cryptography\MessageExchanger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BlockChain\" />
     <Folder Include="Objects\" />
     <Folder Include="Cryptography\" />
+    <Folder Include="Wallet\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

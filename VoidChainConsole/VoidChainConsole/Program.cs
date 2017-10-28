@@ -9,6 +9,8 @@ namespace VoidChainConsole
         public static void Main(string[] args)
         {
 
+            VoidChainLib.Cryptography.
+
             VoidChainLib.BlockChain.VoidChain chain = new VoidChainLib.BlockChain.VoidChain();
 
             chain.Initialize();
