@@ -5,7 +5,11 @@ namespace VoidChainLib.Objects
 {
     public class Helpers
     {
-
+        /// <summary>
+        /// Gets the merkle hash.
+        /// </summary>
+        /// <returns>The merkle hash.</returns>
+        /// <param name="hashes">Hashes, unsorted.</param>
         public string GetMerkleHash(List<string> hashes)
         {
             hashes.Sort(); //always sort your hashes
