@@ -28,12 +28,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BlockChain\Block.cs" />
-    <Compile Include="BlockChain\Transaction.cs" />
-    <Compile Include="BlockChain\VoidChain.cs" />
     <Compile Include="Objects\VoidChainException.cs" />
     <Compile Include="Objects\Extensions.cs" />
     <Compile Include="Wallet\Wallet.cs" />
@@ -42,13 +42,23 @@
     <Compile Include="Cryptography\Signer.cs" />
     <Compile Include="Objects\Interfaces\IKey.cs" />
     <Compile Include="Cryptography\Keys.cs" />
+    <Compile Include="Blockchains\Voidchain\Block.cs" />
+    <Compile Include="Blockchains\Voidchain\Transaction.cs" />
+    <Compile Include="Blockchains\Voidchain\VoidChain.cs" />
+    <Compile Include="Blockchains\BasicChain\BasicTransaction.cs" />
+    <Compile Include="Objects\Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BlockChain\" />
+    <Folder Include="Blockchains\" />
     <Folder Include="Objects\" />
     <Folder Include="Cryptography\" />
     <Folder Include="Wallet\" />
     <Folder Include="Objects\Interfaces\" />
+    <Folder Include="Blockchains\Voidchain\" />
+    <Folder Include="Blockchains\BasicChain\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VoidChainLib.BlockChain
+namespace VoidChainLib.Blockchains.Voidchain
 {
 	public class Transaction
 	{

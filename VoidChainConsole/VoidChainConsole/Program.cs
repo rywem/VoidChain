@@ -13,7 +13,7 @@ namespace VoidChainConsole
             sender.Run();
             Console.ReadLine();
 
-            VoidChainLib.BlockChain.VoidChain chain = new VoidChainLib.BlockChain.VoidChain();
+            VoidChainLib.Blockchains.Voidchain.VoidChain chain = new VoidChainLib.Blockchains.Voidchain.VoidChain();
 
             chain.Initialize();
 

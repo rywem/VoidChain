@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VoidChainLib.Objects;
 
-namespace VoidChainLib.BlockChain
+namespace VoidChainLib.Blockchains.Voidchain
 {
     public class VoidChain
     {

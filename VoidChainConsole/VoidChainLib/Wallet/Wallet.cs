@@ -3,9 +3,10 @@ namespace VoidChainLib.Wallet
 {
     public class Wallet
     {
-		//https://github.com/cybervoid/bitcoin/blob/master/src/wallet/wallet.cpp
-
-		/*
+        //https://github.com/cybervoid/bitcoin/blob/master/src/wallet/wallet.cpp
+        //https://bitsonblocks.net/2015/09/09/a-gentle-introduction-to-blockchain-technology/
+        //http://ecomunsing.com/build-your-own-blockchain
+        /*
          * #include "wallet/wallet.h"
         #include "base58.h"
         #include "checkpoints.h"
@@ -39,7 +40,7 @@ namespace VoidChainLib.Wallet
         #include <boost/algorithm/string/replace.hpp>
         #include <boost/thread.hpp>
         */
-		public Wallet()
+        public Wallet()
         {
         }
 

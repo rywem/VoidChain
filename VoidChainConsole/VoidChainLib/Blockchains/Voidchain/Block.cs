@@ -1,5 +1,5 @@
 ﻿using System;
-namespace VoidChainLib.BlockChain
+namespace VoidChainLib.Blockchains.Voidchain
 {
     public interface IBlock
     {

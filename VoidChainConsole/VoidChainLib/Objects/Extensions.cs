@@ -8,6 +8,20 @@ namespace VoidChainLib.Objects
 {
 	public static class Extensions
 	{
+        public static List<string> GetFingerprints<T>(this List<T> objs)
+        {
+            List<string> newHashes = new List<string>();
+
+            foreach (var item in objs)
+            {
+                newHashes.Add(item.GetFingerprint());
+            }
+            return newHashes;
+        }
+        public static string GetFingerprint(this object obj)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj).GetSHA256();
+        }
         public static string GetSHA256(this string input)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(input);
