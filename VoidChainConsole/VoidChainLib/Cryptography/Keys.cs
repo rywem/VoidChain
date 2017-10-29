@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 //using VoidChainLib.Objects.Interfaces;
 
 namespace VoidChainLib.Cryptography
@@ -8,34 +9,49 @@ namespace VoidChainLib.Cryptography
         public byte[] PublicKey { get; set; }
         private byte[] _privateKey;
 
+        public void Generate()
+        {
+            using (ECDiffieHellmanCng key = new ECDiffieHellmanCng())
+            {
+                //var privateKey = alice.Key.Export(CngKeyBlobFormat.Pkcs8PrivateBlob);
+                key.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
+                key.HashAlgorithm = CngAlgorithm.Sha256;
+                PublicKey = key.PublicKey.ToByteArray();
+            }
+        }
+    }
+
+    public class SecureCommunication : ISecureCommunication
+    {
+        public byte[] InitializationVector { get; set; }
+        public IKey key { get; set; }
+        public string UnsecureMessage { get; set; }
+        public byte[] EncryptedMessage { get; set; }
+
+        public void Decrypt()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Encrypt(string Message)
+        {
+            throw new NotImplementedException();
+        }
     }
     public interface IKey
     {
         byte[] PublicKey { get; set; }
-
-        byte[] Encrypt(string message);
-        string Decrypt(byte[] encryptedMessage);
+        void Generate();
     }
-    public class Key
+
+    public interface ISecureCommunication
     {
-        /// <summary>
-        /// The recipient's private key, used for decrypting the message.
-        /// </summary>
-        public byte[] publicKey;
-        /// <summary>
-        /// The sender's private key, used for signing the message.
-        /// </summary>
-        public byte[] privateKey;
+        byte[] InitializationVector { get; set; }
+        IKey key { get; set; }
+        string UnsecureMessage { get; set; }
+        byte[] EncryptedMessage { get; set; }
 
-        public void Initialize()
-        {
-            using (ECDiffieHellmanCng alice = new ECDiffieHellmanCng())
-            {
-                alice.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
-                alice.HashAlgorithm = CngAlgorithm.Sha256;
-                publicKey = alice.PublicKey.ToByteArray();
-
-            }
-        }
+        void Encrypt(string Message);
+        void Decrypt();
     }
 }
