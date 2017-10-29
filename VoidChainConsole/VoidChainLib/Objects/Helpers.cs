@@ -20,6 +20,25 @@ namespace VoidChainLib.Objects
             int hashCount = hashes.Count;
             if (hashes.Count == 1)
                 return hashes;
+            int count = hashes.Count;
+            for (int i = count-1; i >= 0; i = i-2)
+            {
+                if (i  > 0)
+                {
+                    hashes.Add(MerkleHash(hashes[i],hashes[i - 1]));
+                    hashes.RemoveAt(i);
+                    hashes.RemoveAt(i-1);
+                }
+                else
+                {
+                    string substituteHash = "000000000000000";
+                    hashes.Add(MerkleHash(hashes[i], substituteHash));
+                    hashes.RemoveAt(i);
+                }
+            }
+            return MerkleHash(hashes);
+
+
 
             List<string> newHashes = new List<string>();
 
