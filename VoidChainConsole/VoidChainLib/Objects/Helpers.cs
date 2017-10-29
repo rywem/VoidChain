@@ -6,8 +6,11 @@ namespace VoidChainLib.Objects
     public class Helpers
     {
 
-       
-
+        public string GetMerkleHash(List<string> hashes)
+        {
+            hashes.Sort(); //always sort your hashes
+            return MerkleHash(hashes)[0];
+        }
         public List<string> MerkleHash(List<string> hashes)
         {
             int hashCount = hashes.Count;
@@ -26,7 +29,7 @@ namespace VoidChainLib.Objects
                     newHashes.Add(MerkleHash(hashes[i], substituteHash));
                 }
             }
-            return newHashes;
+            return MerkleHash(newHashes);
         }
 
         public string MerkleHash(string hash0, string hash1)
