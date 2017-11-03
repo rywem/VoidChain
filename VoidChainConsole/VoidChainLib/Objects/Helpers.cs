@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VoidChainLib.Objects
 {
@@ -17,18 +18,21 @@ namespace VoidChainLib.Objects
         }
         public List<string> MerkleHash(List<string> hashes)
         {
-            int hashCount = hashes.Count;
-            if (hashes.Count == 1)
-                return hashes;
+            throw new NotImplementedException("Not working correctly");
             int count = hashes.Count;
-            for (int i = count-1; i >= 0; i = i-2)
+            if (count == 1)
+                return hashes;
+            int cap = (int)(count / 2);
+            if(count > 2)
+                cap = cap + (count % 2);
+            for (int i = 0; i < cap; i++)
             {
-                if (i  > 0)
+                if (i <= cap)
                 {
-                    hashes.Add(MerkleHash(hashes[i],hashes[i - 1]));
+                    hashes.Add(MerkleHash(hashes[i], hashes[i + 1]));
+                    hashes.RemoveAt(i + 1);
                     hashes.RemoveAt(i);
-                    hashes.RemoveAt(i-1);
-                }
+                }   
                 else
                 {
                     string substituteHash = "000000000000000";
@@ -37,27 +41,27 @@ namespace VoidChainLib.Objects
                 }
             }
             return MerkleHash(hashes);
-
-
-
-            List<string> newHashes = new List<string>();
-
-            for (int i = 0; i < hashes.Count; i = i+2)
-            {
-                if(i + 1 < hashCount)
-                    newHashes.Add(MerkleHash(hashes[i], hashes[i+1]));
-                else
-                {
-                    string substituteHash = "000000000000000";
-                    newHashes.Add(MerkleHash(hashes[i], substituteHash));
-                }
-            }
-            return MerkleHash(newHashes);
         }
 
         public string MerkleHash(string hash0, string hash1)
         {
             return (hash0 + hash1).GetSHA256();
+        }
+
+        public byte[] HashObjects(params object[] objs)
+        {
+            List<byte> data = new List<byte>();
+            foreach (object item in objs)
+            {
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf 
+                      = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    bf.Serialize(ms, item);
+                    data.AddRange(ms.ToArray().ToList());
+                }
+            }
+            return data.ToArray().GetSHA256();
         }
     }
 }

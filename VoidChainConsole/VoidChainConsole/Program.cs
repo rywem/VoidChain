@@ -13,19 +13,19 @@ namespace VoidChainConsole
             //VoidChainLib.Cryptography.Sender sender = new VoidChainLib.Cryptography.Sender();
             //sender.Run();
 
-            List<VoidChainLib.Blockchains.BasicChain.BasicTransaction> transactions = new List<VoidChainLib.Blockchains.BasicChain.BasicTransaction>();
-            transactions.Add(new VoidChainLib.Blockchains.BasicChain.BasicTransaction()
+            List<BasicTransaction> transactions = new List<BasicTransaction>();
+            transactions.Add(new BasicTransaction()
             {
                 Amount = 1.2m, Destination = "x", Source ="y", Signature = "33"
             });
-            transactions.Add(new VoidChainLib.Blockchains.BasicChain.BasicTransaction()
+            transactions.Add(new BasicTransaction()
             {
                 Amount = 12.2m,
                 Destination = "t",
                 Source = "v",
                 Signature = "233"
             });
-            transactions.Add(new VoidChainLib.Blockchains.BasicChain.BasicTransaction()
+            transactions.Add(new BasicTransaction()
             {
                 Amount = 12.2m,
                 Destination = "re",

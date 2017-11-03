@@ -48,6 +48,7 @@
     <Compile Include="Blockchains\BasicChain\BasicTransaction.cs" />
     <Compile Include="Objects\Helpers.cs" />
     <Compile Include="Blockchains\BasicChain\BasicBlock.cs" />
+    <Compile Include="Blockchains\Tinychain\TinyBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Blockchains\" />
@@ -57,6 +58,7 @@
     <Folder Include="Objects\Interfaces\" />
     <Folder Include="Blockchains\Voidchain\" />
     <Folder Include="Blockchains\BasicChain\" />
+    <Folder Include="Blockchains\Tinychain\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
