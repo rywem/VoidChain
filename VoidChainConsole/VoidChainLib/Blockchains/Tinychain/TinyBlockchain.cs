@@ -19,6 +19,13 @@ namespace VoidChainLib.Blockchains.Tinychain
             this.Chain = blocks;
         }
 
+        public TinyBlock this[string hash]
+        {
+            get
+            {
+                return Chain.FirstOrDefault(x => x.Hash.Equals(hash));
+            }
+        }
 
         public TinyBlock CreateGenesisBlock()
         {
