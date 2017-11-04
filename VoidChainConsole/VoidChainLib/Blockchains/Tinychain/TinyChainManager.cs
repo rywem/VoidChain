@@ -23,7 +23,9 @@ namespace VoidChainLib.Blockchains.Tinychain
             //Review blockchain
             foreach (var chain in BlockChain.Chain)
             {
-                Console.WriteLine($"{chain.Index} \tPH: {chain.PreviousHash}, \t {chain.Timestamp} \n{chain.Index} \tNH: {chain.Hash}");
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(chain, Newtonsoft.Json.Formatting.Indented);
+                Console.WriteLine(json);
+                Console.WriteLine("---------------------------------------------");
             }
         }
     }
