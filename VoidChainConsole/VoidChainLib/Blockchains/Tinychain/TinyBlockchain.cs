@@ -19,6 +19,7 @@ namespace VoidChainLib.Blockchains.Tinychain
             this.Chain = blocks;
         }
 
+        #region indexers
         public TinyBlock this[string hash]
         {
             get
@@ -26,6 +27,8 @@ namespace VoidChainLib.Blockchains.Tinychain
                 return Chain.FirstOrDefault(x => x.Hash.Equals(hash));
             }
         }
+
+        #endregion
 
         public TinyBlock CreateGenesisBlock()
         {
