@@ -51,6 +51,7 @@
     <Compile Include="Blockchains\Tinychain\TinyBlock.cs" />
     <Compile Include="Blockchains\Tinychain\TinyTransaction.cs" />
     <Compile Include="Blockchains\Tinychain\TinyBlockchain.cs" />
+    <Compile Include="Blockchains\Tinychain\TinyChainManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Blockchains\" />

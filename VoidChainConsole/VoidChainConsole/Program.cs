@@ -10,6 +10,10 @@ namespace VoidChainConsole
         public static void Main(string[] args)
         {
 
+            VoidChainLib.Blockchains.Tinychain.TinyChainManager manager = new VoidChainLib.Blockchains.Tinychain.TinyChainManager();
+            manager.Run();
+            Console.ReadLine();
+
             //VoidChainLib.Cryptography.Sender sender = new VoidChainLib.Cryptography.Sender();
             //sender.Run();
 

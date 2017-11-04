@@ -41,11 +41,25 @@ namespace VoidChainLib.Objects
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < characterCount; i++)
             {
-                builder.Append(('0');
+                builder.Append('0');
             }
             return builder.ToString();
         }
 
+        public string RandomString(int length, Random random)
+        {
+            StringBuilder builder = new StringBuilder();
+            int add = 0;
+            if (random.Next() % 2 == 0)
+                add = 65;
+            else
+                add = 97;
+            for (int i = 0; i < length; i++)
+            {
+                builder.Append((char)(int)(random.Next() % 26)+ add);
+            }
+            return builder.ToString();
+        }
         public byte[] ObjectsToBytes(params object[] objs)
         {
             List<byte> data = new List<byte>();

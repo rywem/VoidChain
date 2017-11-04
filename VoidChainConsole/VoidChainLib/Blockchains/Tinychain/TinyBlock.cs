@@ -18,11 +18,16 @@ namespace VoidChainLib.Blockchains.Tinychain
         public DateTime Timestamp { get; set; }
         public List<TinyTransaction> Transactions { get; set; }
         public string PreviousHash { get; set; }
+        private string _Hash;
         public string Hash 
         { 
             get
             {
-                return BlockHash();
+                if (string.IsNullOrEmpty(_Hash))
+                {
+                    CalculateBlockHash();
+                }
+                return this._Hash;
             }
          }
         public TinyBlock()
@@ -45,9 +50,13 @@ namespace VoidChainLib.Blockchains.Tinychain
         {
             return new Helpers().MerkleRoot(Transactions.GetFingerprints());
         }
+        public void CalculateBlockHash()
+        {
+            this._Hash = BlockHash();
+        }
         private string BlockHash()
         {
-            return new Helpers().ObjectsToBytes(Index, Timestamp, Data, PreviousHash).GetSHA256AsString();
+            return new Helpers().ObjectsToBytes(Index, Timestamp, Transactions.GetFingerprint(), PreviousHash).GetSHA256AsString();
         }
     }
 }
