@@ -10,13 +10,21 @@ namespace VoidChainLib.Objects
 	{
         public static List<string> GetFingerprints<T>(this List<T> objs)
         {
-            List<string> newHashes = new List<string>();
+            return objs.AsEnumerable().GetFingerprints<T>().ToList();
+            //List<string> newHashes = new List<string>();
+            //foreach (var item in objs)
+            //{
+            //    newHashes.Add(item.GetFingerprint());
+            //}
+            //return newHashes;
+        }
 
+        public static IEnumerable<string> GetFingerprints<T>(this IEnumerable<T> objs)
+        {
             foreach (var item in objs)
             {
-                newHashes.Add(item.GetFingerprint());
+                yield return item.GetFingerprint();
             }
-            return newHashes;
         }
         public static string GetFingerprint(this object obj)
         {

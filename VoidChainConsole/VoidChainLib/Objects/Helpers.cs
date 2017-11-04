@@ -41,25 +41,28 @@ namespace VoidChainLib.Objects
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < characterCount; i++)
             {
-                builder.Append((char)0);
+                builder.Append(('0');
             }
             return builder.ToString();
         }
 
-        public byte[] HashObjects(params object[] objs)
+        public byte[] ObjectsToBytes(params object[] objs)
         {
             List<byte> data = new List<byte>();
             foreach (object item in objs)
             {
-                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf 
-                      = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                using (var ms = new System.IO.MemoryStream())
+                if (item != null)
                 {
-                    bf.Serialize(ms, item);
-                    data.AddRange(ms.ToArray().ToList());
+                    System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf
+                          = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    using (var ms = new System.IO.MemoryStream())
+                    {
+                        bf.Serialize(ms, item);
+                        data.AddRange(ms.ToArray().ToList());
+                    }
                 }
             }
-            return data.ToArray().GetSHA256();
+            return data.ToArray();
         }
     }
 }
