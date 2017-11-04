@@ -59,6 +59,7 @@
     <Folder Include="Blockchains\Voidchain\" />
     <Folder Include="Blockchains\BasicChain\" />
     <Folder Include="Blockchains\Tinychain\" />
+    <Folder Include="Network\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -33,7 +33,7 @@ namespace VoidChainLib.Blockchains.BasicChain
             if(Transactions != null && Transactions.Count > 0)
             {
                 Helpers helper = new Helpers();
-                return helper.GetMerkleHash(Transactions.GetFingerprints());
+                return helper.MerkleRoot(Transactions.GetFingerprints());
             }
             throw new Exception("Transactions not set");
         }

@@ -1,51 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace VoidChainLib.Objects
 {
     public class Helpers
     {
-        /// <summary>
-        /// Gets the merkle hash.
-        /// </summary>
-        /// <returns>The merkle hash.</returns>
-        /// <param name="hashes">Hashes, unsorted.</param>
-        public string GetMerkleHash(List<string> hashes)
+        
+        public string MerkleRoot(List<string> hashes)
         {
-            hashes.Sort(); //always sort your hashes
-            return MerkleHash(hashes)[0];
-        }
-        public List<string> MerkleHash(List<string> hashes)
-        {
-            throw new NotImplementedException("Not working correctly");
             int count = hashes.Count;
             if (count == 1)
-                return hashes;
-            int cap = (int)(count / 2);
-            if(count > 2)
-                cap = cap + (count % 2);
-            for (int i = 0; i < cap; i++)
+                return hashes[0];
+            
+            //If an odd number of strings, add a default string to the end
+            if (count % 2 == 1)
+                hashes.Add(hashes.Last());
+            int cap = (int)(hashes.Count / 2);
+            while (hashes.Count > cap)
             {
-                if (i <= cap)
+                if (hashes.Count > 1)
                 {
-                    hashes.Add(MerkleHash(hashes[i], hashes[i + 1]));
-                    hashes.RemoveAt(i + 1);
-                    hashes.RemoveAt(i);
-                }   
-                else
-                {
-                    string substituteHash = "000000000000000";
-                    hashes.Add(MerkleHash(hashes[i], substituteHash));
-                    hashes.RemoveAt(i);
+                    //hash the first 2 elements
+                    hashes.Add(MerkleHash(hashes[0], hashes[1]));
+                    hashes.RemoveAt(0);
+                    hashes.RemoveAt(0);
                 }
             }
-            return MerkleHash(hashes);
+            return MerkleRoot(hashes);
         }
 
         public string MerkleHash(string hash0, string hash1)
         {
-            return (hash0 + hash1).GetSHA256();
+            return string.Concat(hash0, hash1).GetSHA256();
+        }
+
+        public string GenerateDefaultString(int characterCount)
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < characterCount; i++)
+            {
+                builder.Append((char)0);
+            }
+            return builder.ToString();
         }
 
         public byte[] HashObjects(params object[] objs)
