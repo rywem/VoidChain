@@ -24,15 +24,26 @@ namespace VoidChainLib.Blockchains.Tinychain
         {
             get
             {
+                if (string.IsNullOrEmpty(hash))
+                    return null;
                 return Chain.FirstOrDefault(x => x.Hash.Equals(hash));
             }
         }
 
         #endregion
 
-        public TinyBlock CreateGenesisBlock()
+        public TinyBlock CreateGenesisBlock(int difficulty = 0 )
         {
-            return new TinyBlock(0, DateTime.Now, new TinyTransaction("0"), new Objects.Helpers().GenerateDefaultString(32));
+            if (difficulty == 0)
+            {
+                return new TinyBlock(0, DateTime.Now, new TinyTransaction("0"), difficulty, new Objects.Helpers().GenerateDefaultString(32));
+            }
+            else
+            {
+                var block = new TinyBlock(0, DateTime.Now, new TinyTransaction("0"), difficulty, new Objects.Helpers().GenerateDefaultString(32));
+                block.MineBlock();
+                return block;
+            }
         }
 
         public bool Validate()
@@ -47,6 +58,8 @@ namespace VoidChainLib.Blockchains.Tinychain
                 
                 if (currentBlock.PreviousHash != prevBlock.Hash)
                     return false;
+                if (currentBlock.ValidateHash() == false)
+                    return false;
             }
             return true;
         }
@@ -58,13 +71,13 @@ namespace VoidChainLib.Blockchains.Tinychain
                 newBlock.PreviousHash = GetLatestBlock().Hash;
                 newBlock.SetBlockHash();
             }
-            newBlock.MineBlock(GetChainDifficulty());
+            newBlock.MineBlock();
             this.Chain.Add(newBlock);
         }
 
         public int GetChainDifficulty()
         {
-            return 5;
+            return 4;
         }
 
         public TinyBlock GetLatestBlock()

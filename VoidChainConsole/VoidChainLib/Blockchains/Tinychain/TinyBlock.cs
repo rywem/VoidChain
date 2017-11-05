@@ -21,12 +21,13 @@ namespace VoidChainLib.Blockchains.Tinychain
         public DateTime Timestamp { get; set; }
         public List<TinyTransaction> Transactions { get; set; }
         public string PreviousHash { get; set; }
+        public int Difficulty { get; set; }
         private string _Hash;
         public string Hash 
         { 
             get
             {
-                if (string.IsNullOrEmpty(_Hash))
+                if (!string.IsNullOrEmpty(_Hash))
                 {
                     SetBlockHash();
                 }
@@ -36,7 +37,15 @@ namespace VoidChainLib.Blockchains.Tinychain
         public TinyBlock()
         {
         }
-        public TinyBlock(int index, DateTime timestamp, List<TinyTransaction> transactions, string previousHash = null, int? nonce = 0)
+    
+        private TinyBlock(int index, DateTime timestamp, int difficulty)
+        {
+            this.Difficulty = difficulty;
+            this.Index = index;
+            this.Timestamp = timestamp;
+        }
+
+        public TinyBlock(int index, DateTime timestamp, List<TinyTransaction> transactions, int difficulty, string previousHash = null, int? nonce = 0) : this(index, timestamp, difficulty)
         {
             this.random = new Random();
             if (nonce != null)
@@ -45,14 +54,33 @@ namespace VoidChainLib.Blockchains.Tinychain
                 this.Nonce = random.Next();
             if (transactions == null || transactions.Count == 0)
                 throw new ArgumentNullException("transactions parameter must be set to generate a block");
-            this.Index = index;
-            this.Timestamp = timestamp;
+           
             this.Transactions = transactions;
             this.PreviousHash = previousHash;
         }
-        public TinyBlock(int index, DateTime timestamp, TinyTransaction transaction, string previousHash = null) : this(index, timestamp, new List<TinyTransaction>(){transaction}, previousHash )
+        public TinyBlock(int index, DateTime timestamp, TinyTransaction transaction, int difficulty, string previousHash = null)
+            : this(index, timestamp, new List<TinyTransaction>(){transaction}, difficulty, previousHash )
         {
             
+        }
+        /// <summary>
+        /// Validates that the hash meets the required difficulty for the block.
+        /// </summary>
+        /// <returns><c>true</c>, if hash was validated, <c>false</c> otherwise.</returns>
+        public bool ValidateHash()
+        {
+            if (Hash.Length < Difficulty)
+                throw new ArgumentOutOfRangeException("Hash is an insufficient length");
+
+            if (!string.IsNullOrWhiteSpace(Hash))
+                return false;
+            bool resultOk = true;
+            for (int i = 0; i < Difficulty; i++)
+            {
+                if (Hash[i] != '0')
+                    resultOk = false;
+            }
+            return resultOk;
         }
         private string GetMerkleRoot()
         {
@@ -67,18 +95,23 @@ namespace VoidChainLib.Blockchains.Tinychain
             return new Helpers().ObjectsToBytes(Index, Timestamp, Transactions.GetFingerprint(), PreviousHash, Nonce).GetSHA256AsString();
         }
 
-        public void MineBlock(int difficulty)
+        public void MineBlock()
         {
             //make the hash of the block start with a certain number of zeros.
             StringBuilder builder = new StringBuilder();
 
-            for (int i = 0; i < difficulty; i++)
+            if (string.IsNullOrEmpty(Hash))
+                this.SetBlockHash();
+            for (int i = 0; i < this.Difficulty; i++)
             {
                 builder.Append('0');
             }
             string match = builder.ToString();
-            while(this.Hash.Substring(0, difficulty) != match)
+            long count = 0; 
+
+            while(this._Hash.Substring(0, Difficulty) != match)
             {
+                count++;
                 this.Nonce++;
                 if (this.Timestamp != DateTime.Now)
                 {
@@ -87,8 +120,8 @@ namespace VoidChainLib.Blockchains.Tinychain
                 }
                 this.SetBlockHash();
             }
-
-            Console.WriteLine("Block mined " + this.Hash);
+            Console.WriteLine("Block mined " + this.Hash +"\n\tBlock ID" + this.Index + "\n\tTime: " + this.Timestamp.ToString()+ "\n\tIterations: " + count);
+            //return this;
         }
     }
 }

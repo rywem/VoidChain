@@ -11,12 +11,6 @@ namespace VoidChainLib.Objects
         public static List<string> GetFingerprints<T>(this List<T> objs)
         {
             return objs.AsEnumerable().GetFingerprints<T>().ToList();
-            //List<string> newHashes = new List<string>();
-            //foreach (var item in objs)
-            //{
-            //    newHashes.Add(item.GetFingerprint());
-            //}
-            //return newHashes;
         }
 
         public static IEnumerable<string> GetFingerprints<T>(this IEnumerable<T> objs)
@@ -26,6 +20,7 @@ namespace VoidChainLib.Objects
                 yield return item.GetFingerprint();
             }
         }
+
         public static string GetFingerprint(this object obj)
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(obj).GetSHA256();

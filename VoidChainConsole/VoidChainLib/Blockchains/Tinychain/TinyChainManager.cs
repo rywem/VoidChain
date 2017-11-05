@@ -20,10 +20,10 @@ namespace VoidChainLib.Blockchains.Tinychain
             string randomHash = string.Empty;
             for (int i = 0; i < 10; i++)
             {
-                this.BlockChain.AddBlock(new TinyBlock(BlockChain.Chain.Count, DateTime.Now, new TinyTransaction(helper.RandomString(20, random)), BlockChain.GetLatestBlock().Hash));
-                if (randomInt == i)
-                    randomHash = this.BlockChain.GetLatestBlock().Hash; 
-                this.BlockChain.GetLatestBlock().MineBlock(5);
+                this.BlockChain.AddBlock(new TinyBlock(BlockChain.Chain.Count, DateTime.Now, new TinyTransaction(helper.RandomString(20, random)), BlockChain.GetChainDifficulty() , BlockChain.GetLatestBlock().Hash));
+                //if (randomInt == i)
+                //    randomHash = this.BlockChain.GetLatestBlock().Hash; 
+                //this.BlockChain.GetLatestBlock().MineBlock();
             }
            
             //Review blockchain
@@ -35,17 +35,17 @@ namespace VoidChainLib.Blockchains.Tinychain
             }
 
             //select a random block
-            Console.WriteLine("Find a block by hash indexer \t" + randomHash);
-            var block = this.BlockChain[randomHash];
-            Console.WriteLine(randomInt);
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(block, Newtonsoft.Json.Formatting.Indented);
-            Console.WriteLine(json);
+            //Console.WriteLine("Find a block by hash indexer \t" + randomHash);
+            //var block = this.BlockChain[randomHash];
+            //Console.WriteLine(randomInt);
+            //string json = Newtonsoft.Json.JsonConvert.SerializeObject(block, Newtonsoft.Json.Formatting.Indented);
+            //Console.WriteLine(json);
             Console.WriteLine("Validate block chain");
             Console.WriteLine(this.BlockChain.Validate().ToString());
             Console.WriteLine("Try tampering with block chain...");
             this.BlockChain.Chain[3].PreviousHash += "3";
-            //Console.WriteLine("Is chain valid? " + this.BlockChain.Validate().ToString());
-            //Console.ReadLine();
+            Console.WriteLine("Is chain valid? " + this.BlockChain.Validate().ToString());
+            Console.ReadLine();
 
         }
     }
