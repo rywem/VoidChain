@@ -5,11 +5,11 @@ namespace VoidChainLib.Blockchains.Tinychain
 {
     public class TinyChainManager
     {
-        public TinyBlockchain BlockChain { get; set; }
+        public TinyChain BlockChain { get; set; }
 
         public TinyChainManager()
         {
-            this.BlockChain = new TinyBlockchain();
+            this.BlockChain = new TinyChain();
         }
         public void Run()
         {
@@ -22,8 +22,8 @@ namespace VoidChainLib.Blockchains.Tinychain
             {
                 this.BlockChain.AddBlock(new TinyBlock(BlockChain.Chain.Count, DateTime.Now, new TinyTransaction(helper.RandomString(20, random)), BlockChain.GetLatestBlock().Hash));
                 if (randomInt == i)
-                    randomHash = this.BlockChain.GetLatestBlock().Hash;
-                    
+                    randomHash = this.BlockChain.GetLatestBlock().Hash; 
+                this.BlockChain.GetLatestBlock().MineBlock(5);
             }
            
             //Review blockchain
@@ -40,7 +40,12 @@ namespace VoidChainLib.Blockchains.Tinychain
             Console.WriteLine(randomInt);
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(block, Newtonsoft.Json.Formatting.Indented);
             Console.WriteLine(json);
-            Console.ReadLine();
+            Console.WriteLine("Validate block chain");
+            Console.WriteLine(this.BlockChain.Validate().ToString());
+            Console.WriteLine("Try tampering with block chain...");
+            this.BlockChain.Chain[3].PreviousHash += "3";
+            //Console.WriteLine("Is chain valid? " + this.BlockChain.Validate().ToString());
+            //Console.ReadLine();
 
         }
     }
