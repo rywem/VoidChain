@@ -86,9 +86,9 @@
     <Compile Include="Blockchains\Tinychain\TinyChainManager.cs" />
     <Compile Include="Objects\Hash.cs" />
     <Compile Include="Objects\Enumerations.cs" />
-    <Compile Include="P2P\Server.cs" />
     <Compile Include="P2P\PeerClass.cs" />
     <Compile Include="P2P\Peer.cs" />
+    <Compile Include="P2P\Node.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Blockchains\" />
