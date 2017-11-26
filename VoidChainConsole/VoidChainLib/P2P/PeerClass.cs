@@ -40,7 +40,6 @@ namespace VoidChainLib.P2P
     }
     public class PeerClass : IDisposable
     {
-        
         public PeerClass()
         {
         }
