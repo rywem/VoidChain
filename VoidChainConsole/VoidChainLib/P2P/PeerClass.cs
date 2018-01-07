@@ -38,10 +38,10 @@ namespace VoidChainLib.P2P
             return left.GetHashCode() ^ right.GetHashCode();
         }
     }
-    public class PeerClass : IDisposable
-    {
-        public PeerClass()
-        {
-        }
-    }
+    //public class PeerClass : IDisposable
+    //{
+    //    public PeerClass()
+    //    {
+    //    }
+    //}
 }
