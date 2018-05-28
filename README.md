@@ -2,7 +2,7 @@
 A repository to explore general blockchain related concepts.
 
 
-##### This repository is part of my [Fill the Void](https://github.com/cybervoid/fill-the-void) effort to better understand Blockchain technology.
+##### This repository is part of my personal [Fill the Void](https://github.com/cybervoid/fill-the-void) initiative to understand Blockchain technology at an expert level.
 
 ## Topics covered
 1. Rewriting of the [gnaf/genesis block](https://github.com/Gnaf/GenesisBlockZero) in C# [link](https://github.com/cybervoid/VoidChain/tree/master/VoidChainConsole/VoidChainLib/Blockchains/Voidchain)
