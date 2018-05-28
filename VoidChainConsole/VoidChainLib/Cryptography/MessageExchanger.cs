@@ -5,14 +5,7 @@ using System.IO;
 
 namespace VoidChainLib.Cryptography
 {
-    public class MessageExchanger
-    {
-        public void Run()
-        {
-            
-        }
-    }
-
+  
     public class Key
     {
         /// <summary>

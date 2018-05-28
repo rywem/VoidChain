@@ -71,7 +71,6 @@
     <Compile Include="Wallet\Wallet.cs" />
     <Compile Include="Cryptography\RSAKeyPairs.cs" />
     <Compile Include="Cryptography\MessageExchanger.cs" />
-    <Compile Include="Cryptography\Signer.cs" />
     <Compile Include="Objects\Interfaces\IKey.cs" />
     <Compile Include="Cryptography\Keys.cs" />
     <Compile Include="Blockchains\Voidchain\Block.cs" />
