@@ -1,10 +1,12 @@
 # VoidChain
-This repository was part of my *"Fill the Void"* effort to understand Blockchain technology at an expert level.
+A repository to explore general blockchain related concepts.
 
-# "Fill the Void" Repositories
-1. [RaidenVoid](https://github.com/cybervoid/RaidenVoid) - For learning all things Ethereum.
-2. [LightningVoid](https://github.com/cybervoid/LightningVoid) - For learning all things Bitcoin
-3. [VoidChain](https://github.com/cybervoid/VoidChain) - For learning general blockchain concepts
-4. [Cryptography](https://github.com/cybervoid/Cryptography) - for a better understanding of cryptography
-5. [HyperLedger](https://github.com/cybervoid/HyperledgerRepository) - for learning hyperledger
-6. Neo - note, most Neo work consisted of forks of existing projects
+
+##### This repository is part of my [Fill the Void](https://github.com/cybervoid/fill-the-void) effort to better understand Blockchain technology.
+
+## Topics covered
+1. Rewriting of the [gnaf/genesis block](https://github.com/Gnaf/GenesisBlockZero) in [C#](https://github.com/cybervoid/VoidChain/tree/master/VoidChainConsole/VoidChainLib/Blockchains/Voidchain)
+2. Building a simple blockchain - [Tinychain](https://github.com/cybervoid/VoidChain/tree/master/VoidChainConsole/VoidChainLib/Blockchains/Tinychain)
+3. Creating signed messages using Elliptic Curve Cryptography - [link](https://github.com/cybervoid/VoidChain/tree/master/VoidChainConsole/VoidChainLib/Cryptography)
+4. Hashing (SHA256) - [code](https://github.com/cybervoid/VoidChain/blob/5b95b401118b2506fe4279f04eda4852cd9084ec/VoidChainConsole/VoidChainLib/Objects/Extensions.cs#L28)
+5. Merkle Trees  [code](https://github.com/cybervoid/VoidChain/blob/master/VoidChainConsole/VoidChainLib/Objects/Helpers.cs)
