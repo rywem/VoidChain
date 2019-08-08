@@ -37,7 +37,6 @@ namespace VoidChainLib.Cryptography
         {
             using(ECDiffieHellmanCng alice = new ECDiffieHellmanCng())
             {
-                //var privateKey = alice.Key.Export(CngKeyBlobFormat.Pkcs8PrivateBlob);
                 alice.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
                 alice.HashAlgorithm = CngAlgorithm.Sha256;
                 alicePublicKey = alice.PublicKey.ToByteArray();

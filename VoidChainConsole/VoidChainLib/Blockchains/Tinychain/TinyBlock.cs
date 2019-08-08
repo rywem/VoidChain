@@ -121,7 +121,6 @@ namespace VoidChainLib.Blockchains.Tinychain
                 this.SetBlockHash();
             }
             Console.WriteLine("Block mined " + this.Hash +"\n\tBlock ID" + this.Index + "\n\tTime: " + this.Timestamp.ToString()+ "\n\tIterations: " + count);
-            //return this;
         }
     }
 }

@@ -14,9 +14,6 @@ namespace VoidChainConsole
             manager.Run();
             Console.ReadLine();
 
-            //VoidChainLib.Cryptography.Sender sender = new VoidChainLib.Cryptography.Sender();
-            //sender.Run();
-
             List<BasicTransaction> transactions = new List<BasicTransaction>();
             transactions.Add(new BasicTransaction()
             {

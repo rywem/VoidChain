@@ -21,9 +21,6 @@ namespace VoidChainLib.Blockchains.Tinychain
             for (int i = 0; i < 10; i++)
             {
                 this.BlockChain.AddBlock(new TinyBlock(BlockChain.Chain.Count, DateTime.Now, new TinyTransaction(helper.RandomString(20, random)), BlockChain.GetChainDifficulty() , BlockChain.GetLatestBlock().Hash));
-                //if (randomInt == i)
-                //    randomHash = this.BlockChain.GetLatestBlock().Hash; 
-                //this.BlockChain.GetLatestBlock().MineBlock();
             }
            
             //Review blockchain

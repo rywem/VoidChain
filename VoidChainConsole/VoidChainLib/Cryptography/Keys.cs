@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography;
-//using VoidChainLib.Objects.Interfaces;
 
 namespace VoidChainLib.Cryptography
 {
@@ -12,8 +11,7 @@ namespace VoidChainLib.Cryptography
         public void Generate()
         {
             using (ECDiffieHellmanCng key = new ECDiffieHellmanCng())
-            {
-                //var privateKey = alice.Key.Export(CngKeyBlobFormat.Pkcs8PrivateBlob);
+            {                
                 key.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
                 key.HashAlgorithm = CngAlgorithm.Sha256;
                 PublicKey = key.PublicKey.ToByteArray();

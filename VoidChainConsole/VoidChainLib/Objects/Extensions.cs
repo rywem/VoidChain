@@ -56,7 +56,6 @@ namespace VoidChainLib.Objects
 
 		public static IEnumerable<byte> ToBytes(this ulong number)
 		{
-			//var x = number.SelectMany(BitConverter.GetBytes);
 			foreach (var item in BitConverter.GetBytes(number))
 			{
 				yield return item;

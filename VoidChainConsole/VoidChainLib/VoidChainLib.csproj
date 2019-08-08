@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -68,10 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\VoidChainException.cs" />
     <Compile Include="Objects\Extensions.cs" />
-    <Compile Include="Wallet\Wallet.cs" />
-    <Compile Include="Cryptography\RSAKeyPairs.cs" />
     <Compile Include="Cryptography\MessageExchanger.cs" />
-    <Compile Include="Objects\Interfaces\IKey.cs" />
     <Compile Include="Cryptography\Keys.cs" />
     <Compile Include="Blockchains\Voidchain\Block.cs" />
     <Compile Include="Blockchains\Voidchain\Transaction.cs" />
@@ -83,23 +80,8 @@
     <Compile Include="Blockchains\Tinychain\TinyTransaction.cs" />
     <Compile Include="Blockchains\Tinychain\TinyChain.cs" />
     <Compile Include="Blockchains\Tinychain\TinyChainManager.cs" />
-    <Compile Include="Objects\Hash.cs" />
-    <Compile Include="Objects\Enumerations.cs" />
-    <Compile Include="P2P\PeerClass.cs" />
-    <Compile Include="P2P\Peer.cs" />
-    <Compile Include="P2P\Node.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Blockchains\" />
-    <Folder Include="Objects\" />
-    <Folder Include="Cryptography\" />
-    <Folder Include="Wallet\" />
-    <Folder Include="Objects\Interfaces\" />
-    <Folder Include="Blockchains\Voidchain\" />
-    <Folder Include="Blockchains\BasicChain\" />
-    <Folder Include="Blockchains\Tinychain\" />
-    <Folder Include="P2P\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

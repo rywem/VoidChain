@@ -5,6 +5,9 @@ using VoidChainLib.Objects;
 
 namespace VoidChainLib.Blockchains.Voidchain
 {
+    /// <summary>
+    /// An implementation of the bitcoin genesis block.
+    /// </summary>
     public class VoidChain
     {
 
